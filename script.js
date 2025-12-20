@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. PARTICLE ANIMATION ---
     const canvas = document.getElementById('particleCanvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -59,13 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
         initParticles(); animateParticles();
     }
 
-    // --- 2. SCROLL REVEAL ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
 
-    // --- 3. NAVIGATION LOGIC ---
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     const links = document.querySelectorAll('.nav-links a');
@@ -91,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 4. TYPEWRITER ---
     class TypeWriter {
         constructor(txtElement, words, wait = 3000) {
             this.txtElement = txtElement; this.words = words; this.txt = ''; this.wordIndex = 0;
@@ -116,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         new TypeWriter(txtElement, words, wait);
     }
 
-    // --- 5. RESUME MODAL LOGIC ---
     const openBtn = document.getElementById('openResumeBtn');
     const modal = document.getElementById('resumeModal');
     const closeBtn = document.querySelector('.close-modal');
@@ -141,3 +136,143 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+    const cursorDot = document.querySelector('[data-cursor-dot]');
+    const cursorOutline = document.querySelector('[data-cursor-outline]');
+
+    window.addEventListener('mousemove', function (e) {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+    });
+
+
+    const interactiveElements = document.querySelectorAll('a, button, .hamburger, input, textarea');
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            document.body.classList.add('hovering');
+        });
+        el.addEventListener('mouseleave', () => {
+            document.body.classList.remove('hovering');
+        });
+    });
+
+   // --- 7. CUSTOM FORM VALIDATION LOGIC (FIXED) ---
+    const contactForm = document.getElementById('contactForm');
+
+    if (contactForm) {
+        // 1. NUCLEAR FIX: Disable default browser bubble via JS
+        contactForm.setAttribute('novalidate', true);
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Stop default submit
+            
+            let isValid = true;
+            // Select all required fields
+            const inputs = contactForm.querySelectorAll('input[required], textarea[required]');
+
+            // Clear old errors
+            document.querySelectorAll('.custom-error-bubble').forEach(el => el.remove());
+            document.querySelectorAll('.invalid-field').forEach(el => el.classList.remove('invalid-field'));
+
+            // Check each field
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    
+                    // Highlight the box
+                    input.classList.add('invalid-field');
+
+                    // Create Custom Glass Bubble
+                    const bubble = document.createElement('div');
+                    bubble.className = 'custom-error-bubble';
+                    bubble.innerText = "⚠ Please fill this field";
+                    
+                    // Add to DOM
+                    input.parentElement.appendChild(bubble);
+
+                    // Animation
+                    requestAnimationFrame(() => {
+                        bubble.classList.add('show-error');
+                    });
+                    
+                    // Auto-remove after 3s
+                    setTimeout(() => {
+                        bubble.classList.remove('show-error');
+                        setTimeout(() => bubble.remove(), 300);
+                    }, 3000);
+                }
+            });
+
+            if (isValid) {
+                // Success!
+                const submitBtn = contactForm.querySelector('button');
+                const originalText = submitBtn.innerText;
+                
+                submitBtn.innerText = "Sent! ✓";
+                submitBtn.style.borderColor = "#4CAF50";
+                submitBtn.style.color = "#4CAF50";
+                
+                setTimeout(() => {
+                    contactForm.reset();
+                    submitBtn.innerText = originalText;
+                    submitBtn.style.borderColor = "";
+                    submitBtn.style.color = "";
+                }, 3000);
+            }
+        });
+    }
+
+
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => {
+        if (card.classList.contains('expanded')) {
+            card.classList.remove('expanded');
+        } else {
+            document.querySelectorAll('.project-card').forEach(c => c.classList.remove('expanded'));
+            card.classList.add('expanded');
+        }
+    });
+});
+
+
+
+// --- 9. iOS ELASTIC PULL HEADER EFFECT ---
+const bannerImg = document.querySelector('.full-width-banner img');
+const heroContent = document.querySelector('.hero-content');
+
+if (bannerImg && heroContent) {
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+
+        // ONLY Trigger if user is pulling down (Negative Scroll)
+        // Note: This mostly works on iOS Safari / Mobile Browsers that allow overscroll
+        if (scrollY < 0) {
+            
+            // Calculate Stretch Factor (The deeper the pull, the bigger the scale)
+            const stretch = Math.abs(scrollY);
+            const scale = 1 + (stretch / 500); // Adjust 500 to control sensitivity
+            
+            // 1. Zoom the Poster
+            bannerImg.style.transform = `scale(${scale})`;
+            
+            // 2. Gently push/stretch the text downwards
+            // We scale it slightly too for that "Rubber" text feeling
+            heroContent.style.transform = `translateY(${stretch * 0.5}px) scale(${1 + (stretch / 2000)})`;
+            
+        } else {
+            // Reset to normal when scrolling down
+            bannerImg.style.transform = 'scale(1)';
+            heroContent.style.transform = 'translateY(0) scale(1)';
+        }
+    });
+}
