@@ -276,3 +276,61 @@ if (bannerImg && heroContent) {
         }
     });
 }
+// --- CONTACT FORM HANDLING (FIXED VERSION) ---
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Select the form and status text
+    var form = document.getElementById("contactForm");
+    var status = document.getElementById("form-status");
+
+    // Only run this if the form actually exists on the page
+    if (form) {
+        form.addEventListener("submit", function(event) {
+            // Stop the page from refreshing
+            event.preventDefault();
+            
+            // Get the form data
+            var data = new FormData(form);
+            var button = form.querySelector('button');
+            var originalText = button.innerText;
+
+            // Update button to show loading
+            button.innerText = "Sending...";
+            button.disabled = true;
+
+            // Send data to Formspree
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // SUCCESS: Show gold message & clear form
+                    status.innerHTML = "Thanks! Your message has been sent.";
+                    status.style.color = "#FFC107"; // Gold
+                    form.reset();
+                } else {
+                    // ERROR: Formspree rejected it (e.g., spam)
+                    response.json().then(data => {
+                        if (data.errors) {
+                            status.innerHTML = data.errors.map(error => error.message).join(", ");
+                        } else {
+                            status.innerHTML = "Oops! There was a problem submitting your form";
+                        }
+                        status.style.color = "red";
+                    });
+                }
+            }).catch(error => {
+                // NETWORK ERROR: No internet or blocking issue
+                status.innerHTML = "Oops! There was a network problem.";
+                status.style.color = "red";
+            }).finally(() => {
+                // RESET BUTTON: Turn it back on
+                button.innerText = originalText;
+                button.disabled = false;
+            });
+        });
+    }
+});
