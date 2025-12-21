@@ -334,3 +334,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+// --- PRELOADER LOGIC (Simple & Clean) ---
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    
+    if (preloader) {
+        // Keep the cool animation running for at least 1.5 seconds
+        // This prevents it from flashing too quickly on fast internet
+        setTimeout(() => {
+            
+            // 1. Start the fade out
+            preloader.classList.add('preloader-hidden');
+            
+            // 2. Remove it from the layout completely after fade ends
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 800); // Matches the 0.8s CSS transition
+            
+        }, 1500); 
+    }
+});

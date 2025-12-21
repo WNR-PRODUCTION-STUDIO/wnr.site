@@ -759,7 +759,7 @@ body.hovering .cursor-outline {
 @media (max-width: 768px) {
 
     .full-width-banner img {
-        height: 115px !important; 
+        height: 100px !important; 
         object-fit: cover;        
         object-position: right;   
     }
@@ -1070,4 +1070,97 @@ body.hovering .cursor-outline {
     background: #111;
     border-top: 1px solid #222;
     text-align: right;
+}
+
+
+/* --- CLEAN FULL-SCREEN PRELOADER --- */
+#preloader {
+    /* Force Full Screen Overlay */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important; /* Full Viewport Width */
+    height: 100vh !important; /* Full Viewport Height */
+    
+    background-color: #000000 !important; /* Solid Black */
+    z-index: 9999999 !important; /* Higher than everything */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+/* --- THE REACTOR (Centered & Glowing) --- */
+.reactor-container {
+    width: 140px; /* Slightly bigger for impact */
+    height: 140px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reactor-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    box-shadow: 0 0 25px rgba(255, 193, 7, 0.15); /* Soft ambient glow */
+}
+
+/* Outer Ring (Gold - Fast Spin) */
+.ring-1 {
+    width: 100%; height: 100%;
+    border-top: 4px solid var(--accent);
+    border-right: 4px solid var(--accent);
+    animation: spin-right 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    filter: drop-shadow(0 0 10px var(--accent));
+}
+
+/* Middle Ring (White - Slow Counter Spin) */
+.ring-2 {
+    width: 70%; height: 70%;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.9);
+    border-left: 3px solid rgba(255, 255, 255, 0.9);
+    animation: spin-left 2s linear infinite;
+}
+
+/* Inner Ring (Gold - Fast Spin) */
+.ring-3 {
+    width: 40%; height: 40%;
+    border-top: 3px solid var(--accent);
+    animation: spin-right 1s linear infinite;
+}
+
+/* The Core (Pulsing Energy) */
+.reactor-core {
+    width: 20%; height: 20%;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent); /* Intense Glow */
+    animation: pulse-core 0.8s ease-in-out infinite alternate;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes spin-right {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-left {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes pulse-core {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.3); opacity: 1; }
+}
+
+/* Hiding Class */
+.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
