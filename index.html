@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "YOUR_PUBLIC_KEY",
+      });
+   })();
+</script>
 </head>
 <body>
     <div class="cursor-dot" data-cursor-dot></div>
@@ -44,10 +53,10 @@
               <span class="txt-type" data-wait="4000" data-words='["Welcome to My Portfolio ☕🍪!", "An Ardent | Innovative Engineer", "Proudly Representing PAKISTAN 🇵🇰."]'></span>
             </h3>
 
-            <p class="reveal-text delay-400">Electrical Engineering student at FAST-NUCES transitioning to Computer Engineering. Passionate about innovating in software & hardware integration.</p>
+            <p class="reveal-text delay-400">Electrical Engineering student at FAST NUCES transitioning to Computer Engineering. Passionate about innovating in software & hardware integration.</p>
             
             <div class="cta-buttons reveal-text delay-600">
-                <a href="#projects" class="btn primary">View Portfolio</a>
+                <a href="#projects" class="btn primary">View Projects</a>
                 <button id="openResumeBtn" class="btn secondary">View & Print Resume</button>
             </div>
         </div>
@@ -202,7 +211,7 @@
                     </div>
                     <div class="project-info">
                         <h3>4x4x4 LED Cube Display</h3>
-                        <p>Arduino Nano-based LED cube with multiplexing control, featuring dynamic light patterns and animations.</p>
+                        <p>Arduino Nano based LED cube with multiplexing control, featuring dynamic light patterns and animations.</p>
                         <div class="tags">
                             <span>Arduino</span><span>C++</span><span>Electronics</span>
                         </div>
@@ -297,36 +306,82 @@
                     </div>
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
+                        <span>wnr@muhammadwaleed.site</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
                         <span>waleednaeem133@gmail.com</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-phone"></i>
                         <span>+92-327-8666254</span>
                     </div>
+                    
                     <div class="social-links">
                         <a href="https://github.com/W-N-R" target="_blank"><i class="fab fa-github"></i></a>
                         <a href="https://linkedin.com/in/muhammadwaleed133" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://instagram.com/w.n.r_official" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wnr01.wordpress.com/" target="_blank"><i class="fab fa-wordpress"></i></a>
+                        <a href="https://orcid.org/0009-0000-5359-5368" target="_blank"><i class="fab fa-orcid"></i></a>
+                        <a href="https://www.facebook.com/WNR.Official" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/wnr_wali_01" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://gravatar.com/wnr01" target="_blank"><i class="fab fa-grav"></i></a>
+                        <a href="https://www.patreon.com/c/W_N_R" target="_blank"><i class="fab fa-patreon"></i></a>
+                        <a href="https://www.buymeacoffee.com/waleednaeer" target="_blank"><i class="fas fa-mug-hot"></i></a>
                     </div>
 
                 </div>
                 
-                <form class="contact-form" id="contactForm" action="https://formspree.io/f/xnjappep" method="POST">
+                <form class="contact-form" id="contactForm">
+    <div class="form-group">
+        <input type="text" name="name" placeholder="Your Name" required>
+    </div>
+    <div class="form-group">
+        <input type="email" name="email" placeholder="Your Email" required>
+    </div>
+    <div class="form-group">
+        <input type="text" name="title" placeholder="Subject" required>
+    </div>
+    <div class="form-group">
+        <textarea name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+    </div>
+    
+    <button type="submit" class="btn primary">Send Message</button>
+    <p id="form-status" style="margin-top:10px; font-size:0.9rem;"></p>
+</form>
 
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="5" placeholder="Tell me about your project..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn primary">Send Message</button>
-                    <p id="form-status" style="margin-top:10px; font-size:0.9rem;"></p>
-                </form>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+   // Initialize EmailJS
+   (function(){
+      // REPLACE 'YOUR_PUBLIC_KEY' BELOW
+      emailjs.init("8CUfVOL75tYCqa0QQ");
+   })();
+
+   // Handle the Form Submit
+   document.getElementById('contactForm').addEventListener('submit', function(event) {
+     event.preventDefault(); // Stop the page from reloading
+     
+     const statusBtn = document.getElementById('form-status');
+     statusBtn.innerText = "Sending..."; // Show loading text
+
+     // REPLACE THESE TWO IDs BELOW
+     const serviceID = 'service_portfolio';
+     const templateID = 'template_9ca3x3n';
+
+     emailjs.sendForm(serviceID, templateID, this)
+       .then(() => {
+         statusBtn.innerText = "Message Sent Successfully!";
+         statusBtn.style.color = "green";
+         this.reset(); // Clear the form
+       }, (err) => {
+         statusBtn.innerText = "Failed to send. Please try again.";
+         statusBtn.style.color = "red";
+         console.log(JSON.stringify(err));
+       });
+   });
+</script>
             </div>
         </div>
     </section>
