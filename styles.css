@@ -1021,6 +1021,29 @@ body.hovering .cursor-outline {
         height: 4px !important;
         margin-top: 2px !important;
     }
+    /* --- MOBILE REACTOR BUTTON --- */
+    .circuit-container {
+        /* 1. Move it to fit the Mobile Logo position */
+        top: 48% !important;   /* Move it up slightly */
+        left: 17.3% !important;  /* Adjust horizontal alignment */
+        
+        /* 2. Shrink it down so it doesn't cover the whole banner */
+        transform: scale(0.65) translateX(-50%) !important; 
+        transform-origin: top left;
+    }
+
+    /* 3. Shorten the wire for the thin mobile banner */
+    .circuit-wire {
+        height: 25px !important;
+    }
+    
+    /* 4. Optional: Force the text to always show on mobile (since there is no hover) 
+       OR just hide it to keep it clean. 
+       This code keeps it HIDDEN to save space. */
+    .reactor-text {
+        display: none !important; 
+    }
+    
 }
 
 .modal-overlay {
@@ -1217,4 +1240,150 @@ body.hovering .cursor-outline {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+}
+
+
+
+/* --- PHYSICS: NATURAL WIRE SWING ANIMATION --- */
+/* This keeps the button centered (-50%) while rotating it */
+@keyframes natural-swing {
+    0% { transform: translateX(-50%) rotate(3deg); }
+    50% { transform: translateX(-50%) rotate(-3deg); }
+    100% { transform: translateX(-50%) rotate(3deg); }
+}
+
+/* --- MINI REACTOR BUTTON --- */
+
+/* 1. Container Alignment */
+.circuit-container {
+    position: absolute;
+    top: 48.5%;  /* Adjust to align with logo */
+    left: 19.5%; /* Adjust to center on logo */
+    
+    /* We don't need 'transform' here anymore because the animation handles it */
+    /* transform: translateX(-50%);  <-- Removed, handled by animation */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    cursor: pointer; /* Makes whole area clickable */
+
+    /* --- PHYSICS ADDED HERE --- */
+    transform-origin: top center; /* Pins the movement to the Solder Dot */
+    animation: natural-swing 4s ease-in-out infinite; /* Slow, heavy swing */
+}
+
+/* 2. Solder Dot & Wire */
+.solder-dot {
+    width: 5px; height: 5px;
+    background: var(--accent);
+    border-radius: 60%;
+    box-shadow: 0 0 10px var(--accent);
+    z-index: 2;
+}
+
+.circuit-wire {
+    width: 2px;
+    height: 70px; /* Length of wire */
+    background: linear-gradient(to bottom, var(--accent) 50%, rgba(255,255,255,0.5));
+    box-shadow: 0 0 8px var(--accent);
+    transition: height 0.3s ease;
+}
+
+/* 3. The Reactor Button Wrapper */
+.reactor-btn {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -2px; /* Connect to wire */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* 4. The Rings (Mini Preloader Style) */
+.mini-ring {
+    position: absolute;
+    border-radius: 70%;
+    border: 1px solid transparent;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+}
+
+.mini-ring.outer {
+    width: 100%; height: 100%;
+    border-top: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+    animation: spin-right 2s linear infinite;
+}
+
+.mini-ring.inner {
+    width: 60%; height: 60%;
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+    opacity: 0.7;
+    animation: spin-left 2s linear infinite;
+}
+
+/* 5. The Core (Center Dot) */
+.mini-core {
+    width: 30%; height: 30%;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--accent);
+    animation: pulse-core 1s infinite alternate;
+}
+
+/* 6. The Text (Hidden by default, slides out on hover) */
+.reactor-text {
+    position: absolute;
+    left: 62px; /* Sits to the right of the reactor */
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--accent);
+    pointer-events: none; /* Let clicks pass through */
+}
+
+/* --- HOVER ANIMATIONS --- */
+
+/* Wire Stretches */
+.circuit-container:hover .circuit-wire {
+    height: 90px;
+    background: var(--accent);
+}
+
+/* Reactor Spins Faster & Glows */
+.circuit-container:hover .mini-ring {
+    animation-duration: 0.5s; /* Speed up spin */
+    border-color: #fff;
+    box-shadow: 0 0 20px var(--accent);
+}
+
+.circuit-container:hover .mini-core {
+    width: 40%; height: 40%;
+    background: #fff;
+    box-shadow: 0 0 30px var(--accent);
+}
+
+.circuit-container:hover .mini-ring.inner{
+    width: 80%; height: 80%;
+}
+
+.circuit-container:hover .mini-ring.outer{
+    width: 120%; height: 120%;
+}
+
+/* Text Appears */
+.circuit-container:hover .reactor-text {
+    opacity: 1;
+    transform: translateX(0);
 }
