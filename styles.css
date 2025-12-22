@@ -759,7 +759,7 @@ body.hovering .cursor-outline {
 @media (max-width: 768px) {
 
     .full-width-banner img {
-        height: 100px !important; 
+        height: 100 px !important; 
         object-fit: cover;        
         object-position: right;   
     }
@@ -966,6 +966,60 @@ body.hovering .cursor-outline {
     
     .snake-border {
         display: none; 
+    }
+
+    /* --- FIX: COMPACT SKILLS GRID (2 Columns) --- */
+    
+    /* 1. Maximize Width for Columns */
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important; /* Keep 2 Columns */
+        gap: 8px !important; /* Reduce gap between cards to give them more width */
+    }
+
+    /* 2. Shrink the Card Padding */
+    .skills-grid .skill-category {
+        padding: 12px 10px !important; /* Very thin padding */
+        width: 100% !important;
+    }
+
+    /* 3. Make the Title (e.g. "Programming") Smaller */
+    .skills-grid h3 {
+        font-size: 0.85rem !important; 
+        margin-bottom: 12px !important;
+        text-align: center; 
+    }
+
+    /* 4. RE-LAYOUT THE TEXT (Crucial Fix) */
+    .skill-bar .info {
+        /* Stack Name and Percentage vertically to save width */
+        flex-direction: column !important; 
+        align-items: flex-start !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* The Skill Name (e.g. C++ OOP...) */
+    .skill-bar .info p:first-child {
+        font-size: 0.6rem !important; /* Small, readable text */
+        margin-right: 0 !important;
+        white-space: nowrap !important; /* Force it on one line */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Add "..." if it's still too long */
+        width: 100%;
+    }
+
+    /* The Percentage (e.g. 90%) */
+    .skill-bar .info p:last-child {
+        align-self: flex-end !important; /* Push to the right */
+        font-size: 0.6rem !important;
+        color: var(--accent);
+        margin-top: -12px !important; /* Pull it up slightly so it doesn't waste space */
+    }
+    
+    /* 5. Make the Bars Thinner */
+    .skill-bar .bar {
+        height: 4px !important;
+        margin-top: 2px !important;
     }
 }
 
