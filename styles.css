@@ -1,3 +1,24 @@
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 12px; /* Very thin and modern */
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary); /* Blends into your dark background */
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FFC107; /* Semi-transparent gold */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent); /* Solid gold on hover */
+    box-shadow: 0 0 10px var(--accent);
+}
+
+
 :root {
     --bg-primary: #000000; 
     --bg-secondary: #0a0a0a;
@@ -600,6 +621,72 @@ ul {
     padding: 4px 10px;
     border-radius: 4px;
 }
+
+
+
+/* --- GITHUB ACTIVITY GRAPH --- */
+.github-graph-container {
+    background: rgba(0, 0, 0, 0.15); 
+    backdrop-filter: blur(10px) saturate(150%); 
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-top: 1px solid rgba(255, 193, 7, 0.3); /* Gold top highlight */
+    border-radius: 20px;
+    padding: 30px;
+    margin: 50px auto 20px;
+    max-width: 900px;
+    text-align: center;
+    box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.1), 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.github-graph-container:hover {
+    border-color: rgba(255, 193, 7, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 193, 7, 0.15); 
+}
+
+.github-graph-container h3 {
+    color: var(--text-primary);
+    margin-bottom: 25px;
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.github-graph-container h3 i {
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+
+.github-graph-container img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.2)); /* Gives the gold squares a subtle glow */
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .github-graph-container {
+        padding: 15px;
+        margin: 30px auto 10px;
+    }
+    /* Allows horizontal scrolling on tiny phones so the graph doesn't squish */
+    .github-graph-container img {
+        min-width: 600px; 
+    }
+    .github-graph-container {
+        overflow-x: auto;
+    }
+}
+
+
+
+
+
+
 /* ------------------- CERTIFICATES SECTION ------------------------ */
 .certificates-grid {
     display: grid;
@@ -854,17 +941,115 @@ ul {
     box-shadow: 0 0 10px rgba(255, 68, 68, 0.2) !important;
 }
 
-footer {
+/* --- INTERACTIVE CIRCUIT FOOTER (PCB SNAKES) --- */
+.circuit-footer {
+    position: relative;
     text-align: center;
-    padding: 25px;
-    color: var(--text-secondary);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    margin-top: 50px;
+    padding: 80px 20px 60px;
     background: #050505;
-    border-top: 1px solid #1f1f1f;
+    border-top: 1px solid rgba(255, 193, 7, 0.2); 
+    overflow: hidden; 
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px; 
 }
 
+/* 1. The Dot Grid Background (Solder Pads) */
+.circuit-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.15) 2px, transparent 2.5px);
+    background-size: 40px 40px;
+    background-position: center;
+    z-index: 0;
+}
+
+/* 2. The SVG Traces Container */
+.pcb-traces {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    min-width: 1200px; /* Ensures the SVG geometry doesn't squish on mobile */
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Faint background wires (Unlit traces) */
+.base-wire polyline {
+    fill: none;
+    stroke: rgba(255, 193, 7, 0.1); 
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+/* 3. The Glowing Snakes (Data Signals) */
+.signal-wire polyline {
+    fill: none;
+    stroke: var(--accent); /* Solid Gold */
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    
+    /* The magic that makes it a "snake" */
+    stroke-dasharray: 60 2000; /* Snake is 60px long, followed by a massive 2000px gap */
+    stroke-dashoffset: 0;
+    animation: transmitSignal 4s linear infinite;
+}
+
+/* Animation: Shoots the signal outward from the MCU node */
+@keyframes transmitSignal {
+    0% { stroke-dashoffset: 0; opacity: 1; }
+    80% { opacity: 1; }
+    100% { stroke-dashoffset: -1000; opacity: 0; } /* Travels and fades out */
+}
+
+/* 4. The Footer Content & Microcontroller Node */
+.footer-content {
+    position: relative;
+    z-index: 2; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* The Central MCU Node */
+.reactor-core-mini {
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent), 0 0 30px var(--accent);
+    animation: pulse-core 1.5s infinite alternate;
+}
+
+.footer-content p {
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Ensures text stays readable over traces */
+}
+
+.footer-content .highlight {
+    color: var(--accent);
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+}
+
+.footer-tagline {
+    font-size: 0.75rem !important;
+    opacity: 0.5;
+}
 /* --- CURSOR EFFECTS --- */
 .cursor-dot {
     width: 8px;
