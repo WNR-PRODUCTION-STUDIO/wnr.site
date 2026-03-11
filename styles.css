@@ -408,8 +408,8 @@ ul {
 .timeline li::before {
     content: '';
     position: absolute;
-    left: -6px;
-    top: 5px;
+    left: -8px;
+    top: 6px;
     width: 10px;
     height: 10px;
     background: var(--bg-primary);
@@ -456,6 +456,43 @@ ul {
 .timeline-content ul {
     list-style: disc inside;
     color: var(--text-secondary);
+}
+
+
+/* --- EXPERIENCE DOCUMENT BUTTONS --- */
+.doc-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.doc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 193, 7, 0.08); /* Very subtle gold tint */
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 6px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.doc-btn i {
+    font-size: 0.9rem;
+}
+
+/* Hover Effect: Glows and fills with solid gold */
+.doc-btn:hover {
+    background: var(--accent);
+    color: #000000;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    transform: translateY(-2px);
 }
 
 /* ------------------- SKILLS SECTION ------------------------ */
