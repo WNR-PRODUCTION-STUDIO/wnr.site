@@ -1,5 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+// --- TERMINAL TYPEWRITER LOGIC ---
+    const terminalText = document.getElementById('terminal-text');
+    
+    // The lines of code the terminal will "type" out
+    const bootSequence = [
+        "Initializing WNR_OS v2.0...",
+        "Establishing Serial Connection on COM3... [OK]",
+        "Loading Hardware Modules: ESP32, Arduino, PCB... [OK]",
+        "Compiling C++ Data Structures... [SUCCESS]",
+        "Resolving complex algorithms...",
+        "System Ready.",
+        "Welcome, Muhammad Waleed."
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+    
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && lineIndex === 0) {
+            typeTerminal();
+        }
+    }, { threshold: 0.5 });
+    
+    if (terminalText) {
+        observer.observe(document.querySelector('.terminal-container'));
+    }
+
+    function typeTerminal() {
+        if (lineIndex < bootSequence.length) {
+            let currentLine = bootSequence[lineIndex];
+            
+            if (charIndex < currentLine.length) {
+                // Type next character
+                terminalText.innerHTML += currentLine.charAt(charIndex);
+                charIndex++;
+                // Randomize typing speed for realism (10ms - 50ms per char)
+                setTimeout(typeTerminal, Math.random() * 40 + 10);
+            } else {
+                // Line finished. Add a line break and start the next line
+                terminalText.innerHTML += "<br>";
+                lineIndex++;
+                charIndex = 0;
+                // Pause slightly longer at the end of a line (300ms - 800ms)
+                setTimeout(typeTerminal, Math.random() * 500 + 300);
+            }
+        }
+    }
+
+
 // --- EXPERIENCE DOCUMENT MODAL LOGIC ---
     const expDocBtns = document.querySelectorAll('.open-doc');
     const expDocModal = document.getElementById('expDocModal');
@@ -39,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    
+
 
     // --- MAGNETIC NAVBAR SLIDER LOGIC ---
     const navContainer = document.querySelector('.nav-links');
@@ -137,10 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
         initParticles(); animateParticles();
     }
 
-    const observer = new IntersectionObserver((entries) => {
+    const observerHidden = new IntersectionObserver((entries) => {
         entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.hidden').forEach((el) => observerHidden.observe(el));
 
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
