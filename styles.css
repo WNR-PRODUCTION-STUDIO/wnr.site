@@ -1927,3 +1927,47 @@ body.hovering .cursor-outline {
     0%, 49% { opacity: 1; }
     50%, 100% { opacity: 0; }
 }
+
+
+
+/* --- MAGNETIC CURSOR --- */
+.cursor-dot,
+.cursor-outline {
+    pointer-events: none; /* Crucial: clicks must pass through the cursor */
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent);
+}
+
+/* Hide the default cursor on desktop */
+@media (min-width: 769px) {
+    body {
+        cursor: none;
+    }
+    a, button, .project-card, .doc-btn {
+        cursor: none;
+    }
+}
+
+/* Hide custom cursor on mobile */
+@media (max-width: 768px) {
+    .cursor-dot, .cursor-outline {
+        display: none;
+    }
+}
