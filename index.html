@@ -194,7 +194,9 @@
                         </ul>
                         
                         <div class="doc-links">
-                            <a href="documents/MUHAMMAD WALEED Python Developer Internship Offer Letter_page-0001.jpg" target="_blank" class="doc-btn"><i class="fas fa-file-signature"></i> Offer Letter</a>
+                            <button class="doc-btn open-doc" data-doc="documents/MUHAMMAD WALEED Python Developer Internship Offer Letter_page-0001.jpg" data-title="CodeAlpha Offer Letter">
+                                <i class="fas fa-file-signature"></i> Offer Letter
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -205,15 +207,22 @@
                         <h4>CodeAlpha</h4>
                         <span class="date">Dec 2025 - Jan 2026 | Remote</span>
                         <ul>
+                            <li>Student ID: CA/DE1/4773</li>
                             <li>Successfully completed a comprehensive C++ Programming virtual internship.</li>
-                            <li>Demonstrated excellent analytical skills by quickly adapting to emerging technologies and maintaining high productivity.</li>
-                            <li>Fostered strong collaboration with fellow team members and made valuable contributions to organizational projects.</li>
+                            <li>Demonstrated excellent analytical skills by quickly adapting to emerging technologies.</li>
+                            <li>Fostered strong collaboration with fellow team members and made valuable contributions.</li>
                         </ul>
                         
-                        <div class="doc-links">
-                            <a href="documents/codealpha_offerletter.jpg" target="_blank" class="doc-btn"><i class="fas fa-file-signature"></i> Offer Letter</a>
-                            <a href="documents/codealpha_recoletter.jpg" target="_blank" class="doc-btn"><i class="fas fa-award"></i> Recommendation Letter</a>
-                            <a href="certificates/code alpha.jpg" target="_blank" class="doc-btn"><i class="fas fa-certificate"></i> Certificate</a>
+                       <div class="doc-links">
+                            <button class="doc-btn open-doc" data-doc="documents/codealpha_offerletter.jpg" data-title="CodeAlpha Offer Letter">
+                                <i class="fas fa-file-signature"></i> Offer Letter
+                            </button>
+                            <button class="doc-btn open-doc" data-doc="documents/codealpha_recoletter.jpg" data-title="Recommendation Letter">
+                                <i class="fas fa-award"></i> Recommendation Letter
+                            </button>
+                            <button class="doc-btn open-doc" data-doc="certificates/code alpha.jpg" data-title="Internship Certificate">
+                                <i class="fas fa-certificate"></i> Certificate
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -231,7 +240,9 @@
                         </ul>
                         
                         <div class="doc-links">
-                            <a href="documents/vintex_offerletter.jpg" target="_blank" class="doc-btn"><i class="fas fa-file-alt"></i> Offer Letter</a>
+                            <button class="doc-btn open-doc" data-doc="documents/vintex_offerletter.jpg" data-title="Vintex Offer Letter">
+                                <i class="fas fa-file-signature"></i> Offer Letter
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -619,5 +630,22 @@
     </footer>
 
     <script src="script.js"></script>
+
+
+    <div id="expDocModal" class="modal-overlay">
+        <div class="modal-wrapper half-screen-modal">
+            <div class="modal-content golden-border-modal">
+                <div class="modal-header">
+                    <h3 id="expDocTitle">Document Viewer</h3>
+                    <button class="close-exp-modal close-modal">&times;</button>
+                </div>
+                <div class="pdf-container" id="expDocViewer">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 </html>

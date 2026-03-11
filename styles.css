@@ -1561,3 +1561,74 @@ body.hovering .cursor-outline {
     opacity: 1;
     transform: translateX(0);
 }
+
+/* --- ADAPTIVE GOLDEN MODAL (CORRECTED FIX) --- */
+.half-screen-modal {
+    /* Step 1: Remove all width and height constraints from the wrapper */
+    width: auto !important;
+    height: auto !important;
+    
+    /* Step 2: Use flexbox and margin:auto to center it within the overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Ensure old positioning rules are gone */
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    margin: auto;
+}
+
+.golden-border-modal {
+    /* This container will naturally wrap its contents (the image) */
+    width: auto;
+    height: auto;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 30px rgba(255, 193, 7, 0.4), 
+                inset 0 0 20px rgba(255, 193, 7, 0.1);
+    background: #050505;
+    border-radius: 12px;
+}
+
+#expDocViewer {
+    /* Step 3: Remove constraints from the flex container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #050505; /* Matches modal color for seamless edges */
+    overflow: hidden;
+    padding: 0; /* Remove padding to be truly edge-to-edge */
+    
+    /* Ensures this fills the Golden Border container, which fills the wrapper */
+    width: auto; 
+    height: auto; 
+}
+
+#expDocViewer img {
+    /* Step 4: Style the image to dictate the dimensions within strict constraints */
+    height: auto; 
+    width: auto; 
+    object-fit: contain; /* Keeps the whole image visible without distortion */
+    border-radius: 0 0 12px 12px;
+    
+    /* The core of the fix: Strict constraints defined at the image level */
+    max-height: 85vh; /* Prevents the document from being taller than the screen */
+    max-width: 90vw;  /* Prevents the document from being wider than the screen */
+}
+
+/* Mobile Fix: Ensure standard behavior for standard mobile screens */
+@media (max-width: 768px) {
+    .half-screen-modal {
+        width: 90vw !important; /* Forces Standard Width on mobile */
+        height: auto !important; 
+        max-height: 85vh;
+        justify-content: flex-start; /* Stack from top on standard mobile */
+    }
+    
+    #expDocViewer img {
+        width: 100%; /* standard mobile fills width and adjusts height */
+        height: auto;
+        max-height: 70vh;
+    }
+}

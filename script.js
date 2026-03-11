@@ -1,6 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+// --- EXPERIENCE DOCUMENT MODAL LOGIC ---
+    const expDocBtns = document.querySelectorAll('.open-doc');
+    const expDocModal = document.getElementById('expDocModal');
+    const closeExpModalBtn = document.querySelector('.close-exp-modal');
+    const expDocViewer = document.getElementById('expDocViewer');
+    const expDocTitle = document.getElementById('expDocTitle');
 
+    if (expDocBtns.length > 0 && expDocModal) {
+        expDocBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Grab the file path and title from the button
+                const docSrc = btn.getAttribute('data-doc');
+                const docTitle = btn.getAttribute('data-title');
+                
+                // Update the modal
+                expDocTitle.innerText = docTitle;
+                expDocViewer.innerHTML = `<img src="${docSrc}" alt="${docTitle}">`;
+                
+                // Show the modal
+                expDocModal.classList.add('active');
+            });
+        });
+
+        // Close Modal Logic (Clicking X)
+        closeExpModalBtn.addEventListener('click', () => {
+            expDocModal.classList.remove('active');
+            setTimeout(() => expDocViewer.innerHTML = '', 300); // Clear memory
+        });
+
+        // Close Modal Logic (Clicking outside the box)
+        expDocModal.addEventListener('click', (e) => {
+            if (e.target === expDocModal) {
+                expDocModal.classList.remove('active');
+                setTimeout(() => expDocViewer.innerHTML = '', 300);
+            }
+        });
+    }
+
+
+    
 
     // --- MAGNETIC NAVBAR SLIDER LOGIC ---
     const navContainer = document.querySelector('.nav-links');
