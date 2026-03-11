@@ -312,7 +312,7 @@ ul {
     justify-content: center;
 }
 
-/* --- UNIVERSAL GLASS THEME (Global - Desktop & Mobile) --- */
+/* ------------------- UNIVERSAL GLASS THEME (Global - Desktop & Mobile) ------------------- */
 .project-card, 
 .service-card, 
 .skill-category, 
@@ -356,7 +356,7 @@ ul {
 }
 
 
-/* --- ABOUT SECTION --- */
+/* ------------------- ABOUT SECTION ------------------- */
 .about-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -371,7 +371,7 @@ ul {
     gap: 10px;
 }
 
-/* --- TIMELINE --- */
+/* ------------------- TIMELINE ------------------- */
 .timeline li {
     margin-bottom: 25px;
     border-left: 2px solid var(--accent);
@@ -432,7 +432,7 @@ ul {
     color: var(--text-secondary);
 }
 
-/* --- SKILLS SECTION --- */
+/* ------------------- SKILLS SECTION ------------------------ */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -488,7 +488,7 @@ ul {
     box-shadow: 0 0 10px var(--accent);
 }
 
-/* --- PROJECTS SECTION --- */
+/* ------------------ PROJECTS SECTION ------------------- */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -537,8 +537,95 @@ ul {
     padding: 4px 10px;
     border-radius: 4px;
 }
+/* ------------------- CERTIFICATES SECTION ------------------------ */
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
 
-/* --- SERVICES SECTION --- */
+.certificate-card {
+    background: rgba(0, 0, 0, 0.05); 
+    backdrop-filter: blur(4px) saturate(150%); 
+    -webkit-backdrop-filter: blur(4px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-top: 1px solid rgba(255, 255, 255, 0.3); 
+    border-left: 1px solid rgba(255, 255, 255, 0.15); 
+    box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.1), 0 15px 35px rgba(0, 0, 0, 0.3); 
+    border-radius: 20px;
+    padding: 30px 20px; 
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Glowing Theme Effect */
+.certificate-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(255, 193, 7, 0.2), /* The Glow */
+        inset 0 0 10px rgba(255, 193, 7, 0.1);
+}
+
+.certificate-card i {
+    color: var(--accent);
+    margin-bottom: 15px;
+}
+
+.certificate-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.certificate-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    margin-bottom: 20px;
+}
+
+.certificate-card .btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+/* --- CERTIFICATE IMAGE SHOWCASE --- */
+.cert-image-wrapper {
+    width: 100%;
+    height: 340px; /* Controls how tall the image area is */
+    border-radius: 12px; /* Rounds the corners of the image */
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.2); /* Dark background in case image doesn't fill entirely */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cert-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the image fills the box nicely. Change to 'contain' if you don't want it cropped at all. */
+    transition: transform 0.4s ease;
+}
+
+/* Adds a slight zoom effect to the image when you hover over the card */
+.certificate-card:hover .cert-image-wrapper img {
+    transform: scale(1.08);
+}
+
+/* Adjust card padding slightly to accommodate the image */
+.certificate-card {
+    padding: 20px; 
+}
+
+
+/* --------------------- SERVICES SECTION ----------------------- */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -560,7 +647,7 @@ ul {
     font-size: 1.1rem;
 }
 
-/* --- CONTACT SECTION --- */
+/* ------------------- CONTACT SECTION ------------------------- */
 .contact-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -601,7 +688,7 @@ ul {
     display: inline-block;
 }
 
-/* --- GLASS FORMS --- */
+/* ------------------- GLASS FORMS ------------------- */
 .contact-form {
     flex: 1;
     min-width: 300px;
@@ -755,7 +842,7 @@ body.hovering .cursor-outline {
 }
 
 
-/* --- MOBILE RESPONSIVE --- */
+/* ----************--- MOBILE RESPONSIVE ---****************--- */
 @media (max-width: 768px) {
 
     .full-width-banner img {
@@ -868,14 +955,16 @@ body.hovering .cursor-outline {
 
     .projects-grid, 
     .skills-grid, 
-    .services-grid {
+    .services-grid
+    {
         display: grid;
         grid-template-columns: repeat(2, 1fr) !important; 
         gap: 12px;
     }
 
     .about-grid, 
-    .contact-wrapper {
+    .contact-wrapper,
+    .certificates-grid {
         display: grid;
         grid-template-columns: 1fr !important; /* Stack vertically */
         gap: 20px;
@@ -883,7 +972,8 @@ body.hovering .cursor-outline {
 
     /* Glass Cards Mobile Specifics */
     .skill-category, .project-card, .service-card, 
-    .about-card, .timeline-item {
+    .about-card, .timeline-item,
+    .certificate-card {
         background: rgba(0, 0, 0, 0.05) !important; 
         backdrop-filter: blur(2px) saturate(150%); 
         -webkit-backdrop-filter: blur(2px) saturate(150%);
