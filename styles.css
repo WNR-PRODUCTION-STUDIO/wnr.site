@@ -945,15 +945,15 @@ ul {
 .circuit-footer {
     position: relative;
     text-align: center;
-    padding: 80px 20px 60px;
     background: #050505;
     border-top: 1px solid rgba(255, 193, 7, 0.2); 
     overflow: hidden; 
     margin-top: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px; 
+    
+    /* THE FIX: Give it a solid height so the center (chip) and bottom (text) are far apart */
+    min-height: 480px; 
+    
+    /* Removed the display:flex rules that were causing the collision */
 }
 
 /* 1. The Dot Grid Background (Solder Pads) */
@@ -1011,24 +1011,48 @@ ul {
     100% { stroke-dashoffset: -1000; opacity: 0; } /* Travels and fades out */
 }
 
-/* 4. The Footer Content & Microcontroller Node */
+/* 4. THE NEW SVG MICROCONTROLLER (MCU) */
+.svg-mcu line {
+    stroke: var(--accent);
+    stroke-width: 4px;
+    stroke-linecap: round;
+}
+
+.mcu-body {
+    fill: #050505; /* Matches the background so the traces hide underneath */
+    stroke: var(--accent);
+    stroke-width: 4px;
+}
+
+.mcu-core {
+    fill: var(--accent);
+    transform-origin: 500px 200px;
+    animation: mcu-processing 2s infinite alternate ease-in-out;
+}
+
+/* Makes the inner square pulse like it's processing data */
+@keyframes mcu-processing {
+    0% { transform: scale(0.85); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* 5. The Footer Content */
+/* 5. The Footer Content */
 .footer-content {
-    position: relative;
+    position: absolute; 
+    bottom: 30px; 
+    left: 0;
+    width: 100%;
+    
+    /* THE FIX: Adds a 20px safety buffer on the left and right sides */
+    padding: 0 20px; 
+    box-sizing: border-box; 
+    
     z-index: 2; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-}
-
-/* The Central MCU Node */
-.reactor-core-mini {
-    width: 14px;
-    height: 14px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent), 0 0 30px var(--accent);
-    animation: pulse-core 1.5s infinite alternate;
+    gap: 12px;
 }
 
 .footer-content p {
@@ -1050,6 +1074,22 @@ ul {
     font-size: 0.75rem !important;
     opacity: 0.5;
 }
+
+/* --- MOBILE FIX FOR FOOTER TEXT --- */
+@media (max-width: 768px) {
+    .footer-content p {
+        font-size: 0.75rem; /* Shrinks the main text slightly */
+        line-height: 1.6; /* Adds breathing room between the wrapped lines */
+    }
+    
+    .footer-tagline {
+        font-size: 0.65rem !important; /* Shrinks the tagline */
+    }
+}
+
+
+
+
 /* --- CURSOR EFFECTS --- */
 .cursor-dot {
     width: 8px;
