@@ -623,7 +623,28 @@ ul {
 .certificate-card {
     padding: 20px; 
 }
+/* --- SLEEK CERTIFICATE BUTTONS --- */
+.certificate-card .btn {
+    background: transparent !important;
+    background-image: none !important;
+    clip-path: none !important; /* Removes the chunky angled corners */
+    border: 1px solid rgba(255, 193, 7, 0.5) !important; /* Thin, subtle gold border */
+    border-radius: 8px !important; /* Smooth, modern rounded corners */
+    color: var(--accent) !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 2px !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease !important;
+}
 
+/* Hover Effect: Fills with gold and glows */
+.certificate-card .btn:hover {
+    background: var(--accent) !important;
+    color: #000000 !important; /* Black text so it pops against the gold */
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4) !important;
+    transform: translateY(-3px) !important;
+}
 
 /* --------------------- SERVICES SECTION ----------------------- */
 .services-grid {
