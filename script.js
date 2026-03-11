@@ -1,5 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+
+
+    // --- MAGNETIC NAVBAR SLIDER LOGIC ---
+    const navContainer = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links a');
+    
+    // Create the slider element automatically
+    const slider = document.createElement('div');
+    slider.classList.add('nav-slider');
+    
+    if (navContainer) {
+        navContainer.appendChild(slider);
+        
+        navItems.forEach(link => {
+            link.addEventListener('mouseenter', (e) => {
+                // Only trigger on Desktop
+                if (window.innerWidth > 768) {
+                    const linkRect = e.target.getBoundingClientRect();
+                    const containerRect = navContainer.getBoundingClientRect();
+                    
+                    // Move and resize the slider to match the hovered link
+                    slider.style.width = `${linkRect.width}px`;
+                    slider.style.left = `${linkRect.left - containerRect.left}px`;
+                    slider.style.opacity = '1';
+                }
+            });
+        });
+
+        // Hide the slider when the mouse leaves the navigation bar
+        navContainer.addEventListener('mouseleave', () => {
+            if (window.innerWidth > 768) {
+                slider.style.opacity = '0';
+                slider.style.width = '0px';
+            }
+        });
+    }
+
+    
+
+
     const canvas = document.getElementById('particleCanvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');

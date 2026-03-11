@@ -211,6 +211,10 @@ ul {
     
     border-radius: 50px; 
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); 
+    
+    /* ADDED FOR MAGNETIC SLIDER: Keeps the slider trapped inside the pill */
+    position: relative; 
+    overflow: hidden;
 }
 
 .nav-links a {
@@ -227,14 +231,36 @@ ul {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     
     border: 1px solid transparent; 
+    
+    /* ADDED FOR MAGNETIC SLIDER: Keeps the text floating above the glow */
+    position: relative; 
+    z-index: 1; 
 }
 
+/* UPDATED: Removed the old gray hover box, added a glowing text effect */
 .nav-links a:hover {
     color: #fff;
-    background: rgba(255, 255, 255, 0.15); 
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
     transform: translateY(-1px);
+}
+
+/* --- THE NEW MAGNETIC SLIDER --- */
+.nav-slider {
+    position: absolute;
+    top: 6px; /* Matches the top padding of your nav-links */
+    height: calc(100% - 12px); /* Fills the exact height inside the padding */
+    background: rgba(255, 193, 7, 0.15); 
+    border: 1px solid rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.2);
+    border-radius: 30px;
+    z-index: 0; 
+    pointer-events: none; 
+    opacity: 0; 
+    
+    /* Smooth, elastic sliding */
+    transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                width 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.3s ease;
 }
 
 .hamburger {
