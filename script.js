@@ -23,36 +23,7 @@ window.addEventListener("mousemove", (e) => {
     }, { duration: 500, fill: "forwards" });
 });
 
-// MAGNETIC DOCKING EFFECT
-magneticElements.forEach(elem => {
-    elem.addEventListener("mousemove", (e) => {
-        const rect = elem.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        
-        // Calculate distance from center
-        const distanceX = e.clientX - x;
-        const distanceY = e.clientY - y;
 
-        // Move the actual button slightly (Magnet effect)
-        elem.style.transform = `translate(${distanceX * 0.3}px, ${distanceY * 0.3}px)`;
-        
-        // Expand cursor outline to "hug" the button
-        cursorOutline.style.width = `${rect.width + 20}px`;
-        cursorOutline.style.height = `${rect.height + 20}px`;
-        cursorOutline.style.borderRadius = "8px"; // Match your card/button radius
-        cursorOutline.animate({
-            transform: `translate(${rect.left - 10}px, ${rect.top - 10}px)`
-        }, { duration: 150, fill: "forwards" });
-    });
-
-    elem.addEventListener("mouseleave", () => {
-        elem.style.transform = `translate(0px, 0px)`;
-        cursorOutline.style.width = "40px";
-        cursorOutline.style.height = "40px";
-        cursorOutline.style.borderRadius = "50%";
-    });
-});
 
 
 
