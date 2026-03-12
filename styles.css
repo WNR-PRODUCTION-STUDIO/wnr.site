@@ -121,7 +121,6 @@ ul {
 /* --- GLOBAL BUTTON STYLES (Glass Hexagons) --- */
 .btn {
     /* 1. Glassy Base */
-    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     
@@ -667,20 +666,6 @@ ul {
     filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.2)); /* Gives the gold squares a subtle glow */
 }
 
-/* Mobile Adjustment */
-@media (max-width: 768px) {
-    .github-graph-container {
-        padding: 15px;
-        margin: 30px auto 10px;
-    }
-    /* Allows horizontal scrolling on tiny phones so the graph doesn't squish */
-    .github-graph-container img {
-        min-width: 600px; 
-    }
-    .github-graph-container {
-        overflow-x: auto;
-    }
-}
 
 
 
@@ -703,7 +688,7 @@ ul {
     border-left: 1px solid rgba(255, 255, 255, 0.15); 
     box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.1), 0 15px 35px rgba(0, 0, 0, 0.3); 
     border-radius: 20px;
-    padding: 30px 20px; 
+    padding: 20px 20px 15px; 
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     cursor: pointer;
@@ -748,30 +733,35 @@ ul {
 
 /* --- CERTIFICATE IMAGE SHOWCASE --- */
 .cert-image-wrapper {
+    /* REMOVE any fixed height (e.g., height: 250px) if you have it */
+    height: auto !important; 
     width: 100%;
-    height: 340px; /* Controls how tall the image area is */
-    border-radius: 12px; /* Rounds the corners of the image */
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent; /* Remove background so gaps aren't visible */
     overflow: hidden;
-    margin-bottom: 20px;
-    background: rgba(0, 0, 0, 0.2); /* Dark background in case image doesn't fill entirely */
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
 }
 
 .cert-image-wrapper img {
     width: 100%;
-    height: 100%;
-    object-fit: contain; /* Ensures the image fills the box nicely. Change to 'contain' if you don't want it cropped at all. */
-    transition: transform 0.4s ease;
+    height: auto; /* Image dictates the height of the wrapper */
+    display: block;
+    object-fit: contain;
+    /* Optional: Add a subtle border to the image itself if they are very white */
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Adds a slight zoom effect to the image when you hover over the card */
 .certificate-card:hover .cert-image-wrapper img {
-    transform: scale(1.08);
+    transform: scale(1.03);
 }
 
 /* Adjust card padding slightly to accommodate the image */
 .certificate-card {
-    padding: 20px; 
+    padding: 22px; 
 }
 /* --- SLEEK CERTIFICATE BUTTONS --- */
 .certificate-card .btn {
@@ -1075,18 +1065,6 @@ ul {
     opacity: 0.5;
 }
 
-/* --- MOBILE FIX FOR FOOTER TEXT --- */
-@media (max-width: 768px) {
-    .footer-content p {
-        font-size: 0.75rem; /* Shrinks the main text slightly */
-        line-height: 1.6; /* Adds breathing room between the wrapped lines */
-    }
-    
-    .footer-tagline {
-        font-size: 0.65rem !important; /* Shrinks the tagline */
-    }
-}
-
 
 
 
@@ -1152,7 +1130,92 @@ body.hovering .cursor-outline {
 
 
 /* ----************--- MOBILE RESPONSIVE ---****************--- */
+@media (min-width: 768px) {
+    body {
+        cursor: none;
+    }
+    a, button, .project-card, .doc-btn {
+        cursor: none;
+    }
+}
+
 @media (max-width: 768px) {
+
+    .half-screen-modal {
+        width: 90vw !important; /* Forces Standard Width on mobile */
+        height: auto !important; 
+        max-height: 85vh;
+        justify-content: flex-start; /* Stack from top on standard mobile */
+    }
+    
+    #expDocViewer img {
+        width: 100%; /* standard mobile fills width and adjusts height */
+        height: auto;
+        max-height: 70vh;
+    }
+
+
+
+
+    .footer-content p {
+        font-size: 0.75rem; /* Shrinks the main text slightly */
+        line-height: 1.6; /* Adds breathing room between the wrapped lines */
+    }
+    
+    .footer-tagline {
+        font-size: 0.65rem !important; /* Shrinks the tagline */
+    }
+
+
+    /* 1. Fix the Header (Prevents cutoff by the Notch/Status bar) */
+    .section-title {
+        margin-top: 40px !important; /* Pushes the title down away from the clock */
+        font-size: 1.8rem; /* Makes it slightly smaller so it doesn't wrap weirdly */
+    }
+
+    /* 2. Fix the Card Padding */
+    .certificate-card {
+        padding: 25px !important; /* Reduces internal padding so the image can be larger */
+        width: 100% !important; /* Takes up more of the screen width */
+        margin: 0 auto 20px !important; /* Centers it */
+    }
+
+    /* 3. Scale the Certificate Image */
+    .cert-image-wrapper {
+        height: auto !important; /* Lets it find its natural height */
+        max-height: 250px;
+        margin-bottom: 10px;
+    }
+
+    .cert-image-wrapper img {
+        width: 100% !important;
+        object-fit: contain; /* Ensures the whole certificate is visible without cropping */
+    }
+
+    /* 4. Fix the Button Size */
+    .view-cred-btn {
+        width: 100%; /* Makes the button full-width for easier tapping on mobile */
+        padding: 12px;
+        font-size: 0.8rem;
+    }
+
+    .github-graph-container {
+        padding: 15px;
+        margin: 30px auto 10px;
+    }
+    /* Allows horizontal scrolling on tiny phones so the graph doesn't squish */
+    .github-graph-container img {
+        min-width: 600px; 
+    }
+    .github-graph-container {
+        overflow-x: auto;
+    }    
+
+
+    .cursor-dot, .cursor-outline {
+        display: none;
+    }
+
 
     .full-width-banner img {
         height: 100 px !important; 
@@ -1272,8 +1335,7 @@ body.hovering .cursor-outline {
     }
 
     .about-grid, 
-    .contact-wrapper,
-    .certificates-grid {
+    .contact-wrapper {
         display: grid;
         grid-template-columns: 1fr !important; /* Stack vertically */
         gap: 20px;
@@ -1281,8 +1343,7 @@ body.hovering .cursor-outline {
 
     /* Glass Cards Mobile Specifics */
     .skill-category, .project-card, .service-card, 
-    .about-card, .timeline-item,
-    .certificate-card {
+    .about-card, .timeline-item {
         background: rgba(0, 0, 0, 0.05) !important; 
         backdrop-filter: blur(2px) saturate(150%); 
         -webkit-backdrop-filter: blur(2px) saturate(150%);
@@ -1842,21 +1903,7 @@ body.hovering .cursor-outline {
     max-width: 90vw;  /* Prevents the document from being wider than the screen */
 }
 
-/* Mobile Fix: Ensure standard behavior for standard mobile screens */
-@media (max-width: 768px) {
-    .half-screen-modal {
-        width: 90vw !important; /* Forces Standard Width on mobile */
-        height: auto !important; 
-        max-height: 85vh;
-        justify-content: flex-start; /* Stack from top on standard mobile */
-    }
-    
-    #expDocViewer img {
-        width: 100%; /* standard mobile fills width and adjusts height */
-        height: auto;
-        max-height: 70vh;
-    }
-}
+
 
 
 
@@ -1930,44 +1977,5 @@ body.hovering .cursor-outline {
 
 
 
-/* --- MAGNETIC CURSOR --- */
-.cursor-dot,
-.cursor-outline {
-    pointer-events: none; /* Crucial: clicks must pass through the cursor */
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-}
 
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent);
-}
 
-.cursor-outline {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--accent);
-}
-
-/* Hide the default cursor on desktop */
-@media (min-width: 769px) {
-    body {
-        cursor: none;
-    }
-    a, button, .project-card, .doc-btn {
-        cursor: none;
-    }
-}
-
-/* Hide custom cursor on mobile */
-@media (max-width: 768px) {
-    .cursor-dot, .cursor-outline {
-        display: none;
-    }
-}
