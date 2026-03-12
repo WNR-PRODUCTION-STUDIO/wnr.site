@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
 
+ 
+
 
     const cursorDot = document.querySelector(".cursor-dot");
 const cursorOutline = document.querySelector(".cursor-outline");
@@ -25,6 +27,32 @@ window.addEventListener("mousemove", (e) => {
 
 
 
+
+// --- ACHIEVEMENT FILTER LOGIC ---
+const filterBtns = document.querySelectorAll('.filter-btn');
+const certCards = document.querySelectorAll('.certificate-card');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Switch active class
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filterValue = btn.getAttribute('data-filter');
+
+        certCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            
+            if (filterValue === 'all' || filterValue === cardCategory) {
+                card.classList.remove('hide');
+                card.classList.add('show');
+            } else {
+                card.classList.remove('show');
+                card.classList.add('hide');
+            }
+        });
+    });
+});
 
 
 
@@ -492,23 +520,63 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// --- PRELOADER LOGIC (Simple & Clean) ---
-window.addEventListener('load', () => {
+   window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     
-    if (preloader) {
-        // Keep the cool animation running for at least 1.5 seconds
-        // This prevents it from flashing too quickly on fast internet
+    // Give the SVG 3 seconds to complete its routing animation
+    setTimeout(() => {
+        preloader.classList.add('fade-out');
+        
+        // Optional: Trigger your terminal boot-up sequence 
+        // 500ms after the preloader fades
         setTimeout(() => {
-            
-            // 1. Start the fade out
-            preloader.classList.add('preloader-hidden');
-            
-            // 2. Remove it from the layout completely after fade ends
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 800); // Matches the 0.8s CSS transition
-            
-        }, 1500); 
+            if (typeof typeTerminal === "function") typeTerminal();
+        }, 500);
+        
+    }, 3200); 
+});
+
+
+const binaryClue = document.getElementById('binary-clue');
+
+// These are actual binary translations
+const clues = [
+    "01010111 01001110 01010010", // WNR
+    "00110010 00110100 01001100", // 24L (Part of your Roll No)
+    "01100110 01100001 01110011", // fas (FAST)
+    "01000100 01001100 01000100", // DLD (Digital Logic Design)
+    "01001100 01001111 01000111"  // LOG (Logic)
+];
+
+let i = 0;
+const clueInterval = setInterval(() => {
+    binaryClue.innerText = clues[i];
+    i = (i + 1) % clues.length;
+}, 800);
+
+
+function generateStars(selector, count, size) {
+    const container = document.querySelector(selector);
+    let boxShadowString = "";
+    
+    for (let i = 0; i < count; i++) {
+        const x = Math.floor(Math.random() * 2000);
+        const y = Math.floor(Math.random() * 2000);
+        const opacity = Math.random();
+        boxShadowString += `${x}px ${y}px rgba(255, 255, 255, ${opacity})${i === count - 1 ? "" : ","}`;
     }
+    
+    container.style.boxShadow = boxShadowString;
+}
+
+// Run this when the page starts
+generateStars(".stars-small", 700, 1);
+generateStars(".stars-medium", 200, 2);
+generateStars(".stars-large", 30, 3);
+
+// Stop the interval when the preloader fades out
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        clearInterval(clueInterval);
+    }, 4000);
 });

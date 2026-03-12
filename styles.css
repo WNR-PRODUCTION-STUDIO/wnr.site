@@ -1977,5 +1977,196 @@ body.hovering .cursor-outline {
 
 
 
+/* --- ACHIEVEMENT FILTERS --- */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
 
+.filter-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    color: var(--text-secondary);
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
 
+.filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    color: #000;
+    box-shadow: 0 0 15px var(--accent);
+    border-color: var(--accent);
+}
+
+/* Animation for cards when they disappear/appear */
+.certificate-card.hide {
+    display: none;
+}
+
+.certificate-card.show {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- THE ULTIMATE SPACE SINGULARITY PRELOADER --- */
+/* --- ORGANIC DEEP SPACE BACKGROUND --- */
+#preloader {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at bottom, #030303 0%, #090A0F 100%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+/* Layer 1: Thousands of tiny distant stars */
+.stars-small {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    /* We use box-shadow to create hundreds of random points */
+    /* I will provide a generator logic below, but here is the style */
+    box-shadow: 456px 123px #FFF, 1234px 567px #FFF, 890px 12px #FFF, 45px 890px #FFF; 
+    /* ... (and 500 more) */
+    animation: stars-slow-rise 200s linear infinite;
+}
+
+/* Layer 2: Medium twinkling stars */
+.stars-medium {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: 234px 567px #FFF, 900px 123px #FFF;
+    animation: stars-slow-rise 150s linear infinite;
+    opacity: 0.5;
+}
+
+/* Layer 3: Occasional bright "Glitter" stars */
+.stars-large {
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: 12px 890px #FFF, 500px 300px var(--accent);
+    animation: stars-slow-rise 100s linear infinite;
+    filter: blur(1px);
+}
+
+.nebula-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.02) 0%, transparent 80%);
+    mix-blend-mode: screen;
+}
+
+@keyframes stars-slow-rise {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-2000px); }
+}
+
+.preloader-container {
+    position: relative;
+    text-align: center;
+    z-index: 10; /* Keeps core above the space layers */
+}
+
+.core-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-inline: auto;
+    margin-bottom: 50px;
+    animation: core-rotate 10s linear infinite;
+    filter: drop-shadow(0 0 15px var(--accent));
+}
+
+.shard {
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid var(--accent);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    opacity: 0.6;
+}
+
+/* Staggered shards */
+.shard-1 { animation: fold-1 3s ease-in-out infinite; }
+.shard-2 { animation: fold-2 3s ease-in-out infinite; opacity: 0.4; }
+.shard-3 { animation: fold-3 3s ease-in-out infinite; opacity: 0.2; }
+.shard-4 { animation: fold-4 3s ease-in-out infinite; opacity: 0.8; }
+
+.core-glow {
+    position: absolute;
+    inset: 25%;
+    background: var(--accent);
+    filter: blur(25px);
+    border-radius: 50%;
+    animation: pulse-glow 1.5s ease-in-out infinite alternate;
+}
+
+/* Binary and Status text */
+.binary-stream {
+    font-family: 'Courier New', monospace;
+    color: var(--accent);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--accent);
+    animation: binary-glitch 0.2s infinite alternate;
+    transition: all 0.2s ease-in-out;
+    filter: drop-shadow(0 0 8px var(--accent));
+    min-height: 1.2rem;
+}
+
+.loading-status {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes space-drift {
+    from { background-position: 0 0, 100px 150px; }
+    to { background-position: 400px 400px, 500px 550px; }
+}
+
+@keyframes nebula-pulse {
+    from { opacity: 0.3; transform: scale(1); }
+    to { opacity: 0.7; transform: scale(1.2); }
+}
+
+@keyframes sparkle-twinkle {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes fold-1 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(0.5); } }
+@keyframes fold-2 { 0%, 100% { transform: rotate(90deg) scale(0.8); } 50% { transform: rotate(270deg) scale(1.2); } }
+@keyframes fold-3 { 0%, 100% { transform: rotate(180deg) scale(1.1); } 50% { transform: rotate(0deg) scale(0.7); } }
+@keyframes fold-4 { 0%, 100% { transform: rotate(270deg) scale(0.6); } 50% { transform: rotate(90deg) scale(1); } }
+
+@keyframes core-rotate { to { transform: rotate(360deg); } }
+@keyframes pulse-glow { from { opacity: 0.2; transform: scale(0.8); } to { opacity: 0.6; transform: scale(1.3); } }
+@keyframes binary-glitch { from { transform: translateX(-1px); opacity: 0.6; } to { transform: translateX(1px); opacity: 1; } }
+
+/* Exit Animation */
+#preloader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.1);
+    transition: opacity 1s ease, transform 1s ease;
+}
