@@ -1,0 +1,292 @@
+/* project-reveal.css */
+:root {
+    --bg-color: #0a0a0a; /* Matches your dark theme */
+    --accent-color: #ffc107; /* Your neon yellow/amber */
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0a0;
+}
+
+body.dark-theme {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Adjust to match your main site font */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* ----------------------------------
+   Sticky Side Navigation (The Dots)
+----------------------------------- */
+.side-nav {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+}
+
+.side-nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.side-nav a {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.side-nav a.active, .side-nav a:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+/* Tooltips for nav dots */
+.side-nav a::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, right 0.3s;
+    white-space: nowrap;
+}
+
+.side-nav a:hover::before {
+    opacity: 1;
+    right: 30px;
+}
+
+/* ----------------------------------
+   Layout & Typography
+----------------------------------- */
+.full-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+.massive-title {
+    font-size: clamp(3rem, 6vw, 7rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 0%, #7a7a7a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    margin-bottom: 4rem;
+    font-weight: 300;
+}
+
+/* The Image Showcase */
+.hero-showcase {
+    max-width: 90%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-showcase:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 35px 70px rgba(255, 193, 7, 0.05);
+}
+
+/* ----------------------------------
+   Hardware Specs Grid
+----------------------------------- */
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    text-align: left;
+}
+
+.spec-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.spec-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 193, 7, 0.5);
+}
+
+.spec-card h3 {
+    color: var(--accent-color);
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+/* ----------------------------------
+   Architecture Card Images
+----------------------------------- */
+.card-image {
+    width: 100%;
+    height: 220px; /* Keeps both cards exactly the same height */
+    object-fit: cover; /* Crops the image beautifully without squishing it */
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ----------------------------------
+   The Escape Hatch
+----------------------------------- */
+.back-button {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.back-button:hover {
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 193, 7, 0.3);
+    transform: translateX(-5px); /* Slides left slightly to indicate "going back" */
+}
+
+/* ----------------------------------
+   Masonry Image Gallery
+----------------------------------- */
+.masonry-grid {
+    column-count: 2; /* Defaults to 2 columns */
+    column-gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.masonry-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    break-inside: avoid; /* Stops an image from splitting in half across columns */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.masonry-grid img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+    border-color: rgba(255, 193, 7, 0.4);
+}
+
+
+/* ----------------------------------
+   Mobile Optimization
+----------------------------------- */
+@media (max-width: 768px) {
+    /* Hide the dot navigation on small screens to save space */
+    .side-nav {
+        display: none; 
+    }
+
+    /* Shrink the escape hatch button and move it tighter to the corner */
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+        padding: 8px 14px;
+        font-size: 0.75rem;
+    }
+
+    /* Adjust section padding so it doesn't trap the user */
+    .full-screen {
+        min-height: auto; 
+        padding: 6rem 1.5rem 4rem 1.5rem;
+    }
+
+    /* Force the massive text to behave */
+    .massive-title {
+        font-size: 2.5rem; 
+        margin-top: 2rem;
+    }
+
+    /* Stack the hardware specs into a single column */
+    .specs-grid {
+        grid-template-columns: 1fr; 
+    }
+    
+    /* Make the gallery 2-column on mobile, but reduce the gap so images stay large */
+    .masonry-grid {
+        column-count: 2;
+        column-gap: 0.5rem; /* Tighter gap for mobile screens */
+    }
+    
+    .masonry-grid img,
+.masonry-grid video {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    
+    /* CRITICAL FIX FOR THE GAP ISSUE */
+    display: inline-block; 
+    vertical-align: top;   
+    break-inside: avoid;
+    
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+}
+
+
+/* Forces the hero image into a sleek, widescreen aspect ratio */
+.cinematic-crop {
+    width: 100%;
+    max-height: 65vh; /* Caps the height so it looks like a wide movie frame */
+    object-fit: cover; /* Ensures the image fills the box without stretching */
+    object-position: center 60%; /* focuses slightly below the absolute center to keep the hotend in frame */
+}

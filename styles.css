@@ -2170,3 +2170,36 @@ body.hovering .cursor-outline {
     transform: scale(1.1);
     transition: opacity 1s ease, transform 1s ease;
 }
+
+
+/* ----------------------------------
+   Project Card Call-to-Action
+----------------------------------- */
+.card-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+    color: #ffc107; /* Matches your neon yellow accents */
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.action-arrow {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The Hover Magic */
+.project-card:hover {
+    cursor: pointer;
+}
+
+.project-card:hover .card-action {
+    opacity: 1; /* Brightens up when hovered */
+}
+
+.project-card:hover .action-arrow {
+    transform: translateX(6px); /* Arrow slides right to indicate moving forward */
+}

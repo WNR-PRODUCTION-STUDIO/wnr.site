@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom 3D Printer | Project Deep Dive</title>
+    <!-- We will link our new CSS file here in the next step -->
+    <link rel="stylesheet" href="project-reveal.css">
+</head>
+<body class="dark-theme">
+    <!-- The Escape Hatch -->
+    <a href="index.html" class="back-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Hub
+    </a>
+
+    <!-- Sticky Side Navigation -->
+    <nav class="side-nav">
+        <ul>
+            <li><a href="#hero" class="active" data-tooltip="Overview"></a></li>
+            <li><a href="#story" data-tooltip="The Build"></a></li>
+            <li><a href="#specs" data-tooltip="Architecture"></a></li>
+            <li><a href="#challenges" data-tooltip="Challenges"></a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Sections -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="reveal-section full-screen">
+            <div class="content-wrapper">
+                <h1 class="massive-title">Precision,<br>Built from Scratch.</h1>
+                <p class="subtitle">Designing and calibrating a custom 3D printing ecosystem.</p>
+                <!-- The Cinematic Macro Teaser -->
+                <img src="hero-macro.jpg" alt="Custom 3D Printer Extruder Macro" class="hero-showcase cinematic-crop">
+            </div>
+        </section>
+
+        <!-- The Story Section -->
+        <section id="story" class="reveal-section full-screen">
+            <div class="content-wrapper split-layout">
+                <div class="text-block">
+                    <h2>From Blueprint to Reality</h2>
+                    <p>Building a 3D printer isn't just about turning screws; it’s an exercise in extreme mechanical sympathy and spatial logic. Instead of settling for an off-the-shelf kit, I wanted complete control over the kinematics, the extrusion mechanics, and the firmware.</p> 
+                    <p>The journey started on foot—navigating through the dense electronics markets of Hall Road and hunting down heavy-duty mechanical components at Brandreth Road. Every single bolt, belt, and board was hand-picked to ensure the final build met my exact tolerances.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Specs Section -->
+        <section id="specs" class="reveal-section full-screen">
+            <div class="content-wrapper">
+                <h2>Hardware Architecture</h2>
+                <div class="specs-grid">
+                    <!-- Motor Card -->
+                    <div class="spec-card">
+                        <img src="nema-17-closeup.jpeg" alt="NEMA 17 Stepper Motor" class="card-image">
+                        <h3>Actuation & Kinematics</h3>
+                        <p>Driven by high-torque NEMA 17 stepper motors. The belt and pulley system was custom-calibrated to eliminate backlash and ensure micro-step precision across the X, Y, and Z axes.</p>
+                    </div>
+                    
+                    <!-- Mainboard Card -->
+                    <div class="spec-card">
+                        <img src="arduino-mega.jpeg" alt="Arduino Mega 2560" class="card-image">
+                        <h3>Logic & Firmware</h3>
+                        <p>Configured and flashed the mainboard firmware from scratch, handling complex tasks like thermal runaway protection, PID tuning for the hotend, and dynamic bed leveling matrices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges Section -->
+        <section id="challenges" class="reveal-section full-screen">
+            <div class="content-wrapper">
+                <h2>Overcoming Friction</h2>
+                <p>The jump from digital circuit simulations to physical hardware is rarely smooth. The biggest hurdles involved routing the complex wiring harnesses without introducing electromagnetic interference, and dialing in the motor stepper drivers (VREF) so the NEMA 17s wouldn't skip steps during high-speed travel moves. The first successful calibration cube made every debugging session worth it.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- The Build Gallery -->
+        <section id="gallery" class="full-screen">
+            <div class="content-wrapper">
+                <h2>The Assembly Process</h2>
+                <div class="masonry-grid">
+                    <!-- Your active fabrication video -->
+                    <video src="fabrication-process.mp4" autoplay muted loop playsinline style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.05);"></video>
+                    <img src="electronics-haul.jpeg" alt="Extruder assembly, wiring, and motor drivers">
+                    <video src="frameview.MOV" autoplay muted loop playsinline style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.05);"></video>
+                    <img src="rods-and-motors.jpg" alt="Linear smooth rods and drive motors ready for the kinematics setup">
+                    
+                </div>
+            </div>
+        </section>
+
+    <!-- GSAP Core & ScrollTrigger (The Apple-Style Engine) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Our new custom animation logic -->
+    <script src="reveal-logic.js"></script>
+</body>
+</html>
