@@ -580,3 +580,26 @@ window.addEventListener('load', () => {
         clearInterval(clueInterval);
     }, 4000);
 });
+
+
+// 🍏 Apple-style expand on tap
+const cards = document.querySelectorAll('.project-card');
+const grid = document.querySelector('.projects-grid');
+
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+
+        const isActive = card.classList.contains('active');
+
+        // reset all
+        cards.forEach(c => c.classList.remove('active'));
+        grid.classList.remove('dimmed');
+
+        // if not already active → activate
+        if (!isActive) {
+            card.classList.add('active');
+            grid.classList.add('dimmed');
+        }
+    });
+});
+
