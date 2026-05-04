@@ -2127,6 +2127,7 @@ body.hovering .cursor-outline {
         padding: 8px 4px !important;
         letter-spacing: 1px !important;
         width : 100% !important;
+        height: auto !important ;
         box-sizing : border-box !important;
         text-align: center !important;
         white-space: nowrap !important;
