@@ -2123,8 +2123,15 @@ body.hovering .cursor-outline {
     }
 
     .certificate-card .btn {
-        font-size: 0.65rem !important;
-        padding: 8px !important;
+        font-size: 0.6rem !important;
+        padding: 8px 4px !important;
+        letter-spacing: 1px !important;
+        width : 100% !important;
+        box-sizing : border-box !important;
+        text-align: center !important;
+        white-space: nowrap !important;
+        overflow: hidden !important; 
+        text-overflow: ellipsis !important;
     }
 
 }
