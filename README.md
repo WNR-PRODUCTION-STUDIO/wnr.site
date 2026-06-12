@@ -1,6 +1,6 @@
 # ⚡ WNR Studio | Interactive Portfolio
 
-![Banner](banner.png)
+![Banner](banner.webp)
 
 <div align="center">
 
